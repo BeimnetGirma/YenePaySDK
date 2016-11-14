@@ -1,0 +1,4 @@
+c:\users\user\documents\visual studio 2013\Projects\YenePaySDK\YenePaySDK\bin\Debug\YenePaySDK.dll
+c:\users\user\documents\visual studio 2013\Projects\YenePaySDK\YenePaySDK\bin\Debug\YenePaySDK.pdb
+c:\users\user\documents\visual studio 2013\Projects\YenePaySDK\YenePaySDK\obj\Debug\YenePaySDK.dll
+c:\users\user\documents\visual studio 2013\Projects\YenePaySDK\YenePaySDK\obj\Debug\YenePaySDK.pdb
