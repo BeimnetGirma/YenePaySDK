@@ -9,20 +9,12 @@ namespace YenePaySdk
 {
     public class CheckoutHelper
     {
-        //private const string checkoutBaseUrlProd = "https://checkout.yenepay.com/Home/Process/";
-        //private const string checkoutBaseUrlSandbox = "https://test.yenepay.com/Home/Process/";
-        //private const string ipnVerifyUrlProd = "https://endpoints.yenepay.com/api/verify/ipn/";
-        //private const string ipnVerifyUrlSandbox = "https://testapi.yenepay.com/api/verify/ipn/";
-        //private const string pdtUrlProd = "https://endpoints.yenepay.com/api/verify/pdt/";
-        //private const string pdtUrlSandbox = "https://testapi.yenepay.com/api/verify/pdt/";
-
-        private const string checkoutBaseUrlProd = "http://localhost/checkout/Home/Process/";
-        private const string checkoutBaseUrlSandbox = "http://localhost/checkout/Home/Process/";
-        private const string ipnVerifyUrlProd = "http://localhost/ETPay.api/api/verify/ipn/";
-        private const string ipnVerifyUrlSandbox = "http://localhost/ETPay.api/api/verify/ipn/";
-        private const string pdtUrlProd = "http://localhost/ETPay.api/api/verify/pdt/";
-        private const string pdtUrlSandbox = "http://localhost/ETPay.api/api/verify/pdt/";
-
+        private const string checkoutBaseUrlProd = "https://checkout.yenepay.com/Home/Process/";
+        private const string checkoutBaseUrlSandbox = "https://test.yenepay.com/Home/Process/";
+        private const string ipnVerifyUrlProd = "https://endpoints.yenepay.com/api/verify/ipn/";
+        private const string ipnVerifyUrlSandbox = "https://testapi.yenepay.com/api/verify/ipn/";
+        private const string pdtUrlProd = "https://endpoints.yenepay.com/api/verify/pdt/";
+        private const string pdtUrlSandbox = "https://testapi.yenepay.com/api/verify/pdt/";
 
         private static HttpClient client = new HttpClient();
 
