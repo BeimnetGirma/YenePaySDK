@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,8 +9,22 @@ namespace YenePaySdk
 {
     public class CheckoutHelper
     {
-        private const string checkoutBaseUrlProd = "http://localhost/checkout/Home/Process";
-        private const string checkoutBaseUrlSandbox = "http://localhost/checkout/Home/Process";
+        //private const string checkoutBaseUrlProd = "https://checkout.yenepay.com/Home/Process/";
+        //private const string checkoutBaseUrlSandbox = "https://test.yenepay.com/Home/Process/";
+        //private const string ipnVerifyUrlProd = "https://endpoints.yenepay.com/api/verify/ipn/";
+        //private const string ipnVerifyUrlSandbox = "https://testapi.yenepay.com/api/verify/ipn/";
+        //private const string pdtUrlProd = "https://endpoints.yenepay.com/api/verify/pdt/";
+        //private const string pdtUrlSandbox = "https://testapi.yenepay.com/api/verify/pdt/";
+
+        private const string checkoutBaseUrlProd = "http://localhost/checkout/Home/Process/";
+        private const string checkoutBaseUrlSandbox = "http://localhost/checkout/Home/Process/";
+        private const string ipnVerifyUrlProd = "http://localhost/ETPay.api/api/verify/ipn/";
+        private const string ipnVerifyUrlSandbox = "http://localhost/ETPay.api/api/verify/ipn/";
+        private const string pdtUrlProd = "http://localhost/ETPay.api/api/verify/pdt/";
+        private const string pdtUrlSandbox = "http://localhost/ETPay.api/api/verify/pdt/";
+
+
+        private static HttpClient client = new HttpClient();
 
         public static string GetCheckoutUrl(CheckoutOptions options, CheckoutItem item)
         {
@@ -48,9 +63,44 @@ namespace YenePaySdk
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
+        }
+
+        public static async Task<bool> IsIPNAuthentic(IPNModel ipnModel)
+        {
+            var keyValues = ipnModel.GetIPNDictionary();
+            var content = new FormUrlEncodedContent(keyValues);
+            var ipnVerifyUrl = ipnModel.UseSandbox ? ipnVerifyUrlSandbox : ipnVerifyUrlProd;
+            var response = await client.PostAsync(ipnVerifyUrl, content);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static async Task<string> RequestPDT(PDTRequestModel pdtRequest)
+        {
+            pdtRequest.RequestType = "PDT";
+            var keyValues = pdtRequest.GetPDTDictionary();
+            var content = new FormUrlEncodedContent(keyValues);
+            var pdtUrl = pdtRequest.UseSandbox ? pdtUrlSandbox : pdtUrlProd;
+            var response = await client.PostAsync(pdtUrl, content);
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                if (!string.IsNullOrEmpty(result) && result.Trim().Contains("SUCCESS"))
+                {
+                    var pdtString = result.Trim().Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+                    if(string.IsNullOrEmpty(pdtString))
+                    {
+                        //the PDT string with this format: "TotalAmmount=total_amount&BuyerId=buyer_yenepay_account_id&BuyerName=buyer_name&TransactionFee=service_charge_fee_amount&MerchantOrderId=order_id_set_by_merchant&MerchantId=merchant_yenepay_account_id&MerchantCode=merchant_yenepay_seller_code&TransactionId=transaction_order_id&Status=current_status_of_the_order&StatusDescription=current_status_description&InvoiceId=invoice_id&Currency=currency_used_for_transaction&PaymentMethod=the_payment_method_used_by_the_buyer"
+                        return pdtString;
+                    }
+                }
+            }
+            return null;
         }
     }
 

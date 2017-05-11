@@ -32,3 +32,37 @@ c:\users\user\documents\visual studio 2013\Projects\SampleShopApplication\Sample
 c:\users\user\documents\visual studio 2013\Projects\SampleShopApplication\SampleShopApplication\obj\Debug\SampleShopApplication.csprojResolveAssemblyReference.cache
 c:\users\user\documents\visual studio 2013\Projects\SampleShopApplication\SampleShopApplication\obj\Debug\SampleShopApplication.dll
 c:\users\user\documents\visual studio 2013\Projects\SampleShopApplication\SampleShopApplication\obj\Debug\SampleShopApplication.pdb
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\SampleShopApplication.dll.config
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\SampleShopApplication.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\SampleShopApplication.pdb
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\Antlr3.Runtime.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\Newtonsoft.Json.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Net.Http.Formatting.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Helpers.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Http.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Http.WebHost.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Mvc.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Optimization.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Razor.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.WebPages.Deployment.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.WebPages.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.WebPages.Razor.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\WebGrease.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\YenePaySdk.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\Antlr3.Runtime.pdb
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\Newtonsoft.Json.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Optimization.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Net.Http.Formatting.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Helpers.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Http.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Http.WebHost.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Mvc.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.Razor.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.WebPages.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.WebPages.Deployment.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\bin\System.Web.WebPages.Razor.xml
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\obj\Debug\SampleShopApplication.dll
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\obj\Debug\SampleShopApplication.pdb
+C:\Users\user\Documents\_Git\YenePaySDK\Microsoft.NET\SampleShopApplication\SampleShopApplication\obj\Debug\SampleShopApplication.csprojResolveAssemblyReference.cache

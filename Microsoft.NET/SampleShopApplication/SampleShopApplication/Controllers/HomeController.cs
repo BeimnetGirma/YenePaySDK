@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using YenePaySdk;
 
 namespace SampleShopApplication.Controllers
@@ -13,12 +14,11 @@ namespace SampleShopApplication.Controllers
 
         public HomeController()
         {
-            checkoutoptions = new CheckoutOptions();
-            checkoutoptions.SellerCode = "ZJCWWWRB";
-            checkoutoptions.CancelReturn = "";
-            checkoutoptions.IpnUrlReturn = "";
-            checkoutoptions.SuccessReturn = "";
-            checkoutoptions.UseSandbox = false;
+            string sellerCode = "0325";
+            string successUrlReturn = "http://localhost:5525/PaymentSuccessReturnUrl";
+            string ipnUrlReturn = "http://localhost:5525/IPNDestination";
+            bool useSandBox = true;
+            checkoutoptions = new CheckoutOptions(sellerCode,string.Empty,CheckoutType.Express,useSandBox,null, successUrlReturn, string.Empty, ipnUrlReturn, string.Empty);
         }
 
         //
@@ -70,6 +70,30 @@ namespace SampleShopApplication.Controllers
 
         }
 
+        [HttpPost]
+        public void IPNDestination(IPNModel ipnModel)
+        {
+            ipnModel.UseSandbox = checkoutoptions.UseSandbox;
+            if (ipnModel != null)
+            {
+                bool isIPNValid = CheckIPN(ipnModel).Result;
+
+                if (isIPNValid)
+                {
+                    //mark the order as "Paid" or "Completed" here
+                }
+            }
+        }
+
+        public void PaymentSuccessReturnUrl()
+        {
+
+        }
+
+        private async Task<bool> CheckIPN(IPNModel model)
+        {
+            return await CheckoutHelper.IsIPNAuthentic(model);
+        }
 
     }
 }

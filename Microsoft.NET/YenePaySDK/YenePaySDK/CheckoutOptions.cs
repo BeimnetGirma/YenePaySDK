@@ -23,6 +23,10 @@ namespace YenePaySdk
         /// </summary>
         public string SuccessReturn { get; set; }
         /// <summary>
+        /// Gets or sets the URL on the merchant's site that will be used to redirect the buyer when the payment process fails.
+        /// </summary>
+        public string FailureReturn { get; set; }
+        /// <summary>
         /// Gets or sets the URL on the merchant's site that will be used to redirect the buyer when the payment process is cancelled.
         /// </summary>
         public string CancelReturn { get; set; }
@@ -30,6 +34,11 @@ namespace YenePaySdk
         /// Gets or sets the URL endpoint on the merchant's site that will be used to send Instant Payment Notifications
         /// </summary>
         public string IpnUrlReturn { get; set; }
+        /// <summary>
+        /// the number of days before an order expires for payment;
+        /// this is an optional field
+        /// </summary>
+        public int? ExpiresInDays { get; set; }
         /// <summary>
         /// Gets or sets the switch used to determine if the operation should be done in the sandbox environment
         /// </summary>
@@ -42,27 +51,52 @@ namespace YenePaySdk
         public CheckoutOptions()
         {
             UseSandbox = false;
-            Process = CheckoutType.Cart;
+            Process = CheckoutType.Express;
         }
 
-        public CheckoutOptions(CheckoutType process, string sellerCode, string orderId, string successReturn = "", string cancelReturn = "", string ipnUrl = "")
+        public CheckoutOptions(string sellerCode, bool useSandBox)
         {
-            UseSandbox = false;
+            SellerCode = sellerCode;
+            UseSandbox = useSandBox;
+        }
+
+        /// <summary>
+        /// Creates a new instance of a CheckoutOptions object with the initial values specified.
+        /// This object will be u
+        /// </summary>
+        /// <param name="sellerCode"></param>
+        /// <param name="merchantOrderId"></param>
+        /// <param name="process"></param>
+        /// <param name="useSandBox"></param>
+        /// <param name="expiresInDays"></param>
+        /// <param name="successReturn"></param>
+        /// <param name="cancelReturn"></param>
+        /// <param name="ipnUrl"></param>
+        /// <param name="failureUrl"></param>
+        public CheckoutOptions(string sellerCode, string merchantOrderId = "", CheckoutType process=CheckoutType.Express, bool useSandBox = false, int? expiresInDays = null, string successReturn = "", string cancelReturn = "", string ipnUrl = "", string failureUrl = "")
+        {
+            UseSandbox = useSandBox;
             Process = process;
             SellerCode = sellerCode;
             SuccessReturn = successReturn;
             CancelReturn = cancelReturn;
             IpnUrlReturn = ipnUrl;
+            FailureReturn = failureUrl;
+            ExpiresInDays = expiresInDays;
+            OrderId = merchantOrderId;
         }
         public Dictionary<string, string> GetAsKeyValue()
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
             dict.Add("MerchantId", SellerCode);
             dict.Add("MerchantOrderId", OrderId);
-            dict.Add("SuccessReturn", SuccessReturn);
-            dict.Add("CancelReturn", CancelReturn);
+            dict.Add("SuccessUrl", SuccessReturn);
+            dict.Add("CancelUrl", CancelReturn);
             dict.Add("IPNUrl", IpnUrlReturn);
+            dict.Add("FailureUrl", FailureReturn);
             dict.Add("Process", Process.ToString());
+            if (ExpiresInDays.HasValue)
+                dict.Add("ExpiresInDays", ExpiresInDays.Value.ToString());
             return dict;
         }
     }

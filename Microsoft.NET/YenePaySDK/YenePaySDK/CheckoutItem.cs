@@ -82,9 +82,15 @@ namespace YenePaySdk
 
         public CheckoutItem()
         {
-
+            this.Quantity = 1;
         }
-        
+
+        public CheckoutItem(string itemName, decimal price, int quantity = 1)
+        {
+            this.ItemName = itemName;
+            this.UnitPrice = price;
+            this.Quantity = quantity;
+        }
 
         public Dictionary<string, string> GetAsKeyValue(Dictionary<string, string> dict)
         {
