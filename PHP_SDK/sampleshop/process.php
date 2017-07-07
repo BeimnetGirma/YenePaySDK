@@ -1,14 +1,19 @@
 <?php
-require 'lib/sdk/checkoutHelper.php';
+
+use YenePay\Models\CheckoutOptions;
+use YenePay\Models\CheckoutItem;
+use YenePay\CheckoutHelper;
+
+require(__DIR__ .'/lib/sdk/CheckoutHelper.php');
 
 define("SELLER_CODE", "0391");
 define("SUCCESS_URL", "");
-define("IPN_URL", "");
-define("USE_SANDBOX", true);
+define("IPN_URL", "http://localhost:8080/sampleshop/ipn.php");
+define("USE_SANDBOX", false);
 
-	$checkoutOptions = new checkoutOptions(SELLER_CODE, USE_SANDBOX);
+	$checkoutOptions = new CheckoutOptions(SELLER_CODE, USE_SANDBOX);
 	
-	$checkoutOrderItem = new checkoutItem($_POST["ItemName"], $_POST["UnitPrice"], $_POST["Quantity"]);
+	$checkoutOrderItem = new CheckoutItem($_POST["ItemName"], $_POST["UnitPrice"], $_POST["Quantity"]);
 	$checkoutOrderItem  -> ItemId = $_POST["ItemId"];
 	$checkoutOrderItem  -> DeliveryFee = $_POST["DeliveryFee"];
 	$checkoutOrderItem  -> Tax1 = $_POST["Tax1"];
@@ -16,8 +21,8 @@ define("USE_SANDBOX", true);
 	$checkoutOrderItem  -> Discount = $_POST["Discount"];
 	$checkoutOrderItem  -> HandlingFee = $_POST["HandlingFee"];
 	
-	$checkoutHelper = new checkoutHelper();
+	$checkoutHelper = new CheckoutHelper();
 	$checkoutUrl = $checkoutHelper -> getSingleCheckoutUrl($checkoutOptions, $checkoutOrderItem);
-	var_dump($checkoutUrl);
-	//header("Location: " . $checkoutUrl);
+	//var_dump($checkoutUrl);
+	header("Location: " . $checkoutUrl);
 ?>																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							

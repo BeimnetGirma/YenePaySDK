@@ -1,10 +1,15 @@
 <?php
+namespace YenePay;
 
-include ('lib/sdk/checkoutItem.php');
-include ('lib/sdk/checkoutOptions.php');
-require '/vendor/autoload.php';
+use YenePay\Models\CheckoutOptions;
+use YenePay\Models\CheckoutItem;
 
-class checkoutHelper 
+require(__DIR__ .'/../vendor/autoload.php');
+require_once(__DIR__ .'/Models/CheckoutOptions.php');
+require_once(__DIR__ .'/Models/CheckoutItem.php');
+
+
+class CheckoutHelper 
 {
 	// const CHECKOUTBASEURL_PROD = "https://checkout.yenepay.com/Home/Process/";
 	// const CHECKOUTBASEURL_SANDBOX = "https://test.yenepay.com/Home/Process/";
@@ -35,7 +40,7 @@ class checkoutHelper
 		// get the checkout items as key-value pair added with the checkoutOptions array
 		$queryString = $item -> getAsKeyValue($optionsDict);
 		$queryString = http_build_query($queryString);
-		if(isset($checkoutOptions -> UseSandbox) && $checkoutOptions -> UseSandbox)
+		if(null != $checkoutOptions -> getUseSandbox() && $checkoutOptions -> getUseSandbox())
 			return self :: CHECKOUTBASEURL_SANDBOX . '?' . $queryString;
 		return self :: CHECKOUTBASEURL_PROD . '?' . $queryString;
 	}
@@ -48,17 +53,17 @@ class checkoutHelper
 		// get the checkout items as key-value pair added with the checkoutOptions array
 		for($i=0; $i<count($items); $i++)
 		{
-			var_dump($items[$i]);
+			//var_dump($items[$i]);
 			$itemsDict = $items[$i]->getAsKeyValue(null);
-			foreach($items as $key => $value)
+			foreach($itemsDict as $key => $value)
 			{
-				$optionsDict["Items[".$i."]".$key] = $value;
+				$optionsDict["Items[".$i."].".$key] = $value;
 			}
 		}
-
+		var_dump($optionsDict);
 		$queryString = http_build_query($optionsDict);
-		if(isset($checkoutOptions -> UseSandbox) && $checkoutOptions -> UseSandbox)
-			return self :: CHECKOUTBASEURL_SANDBOX . $queryString;
+		if(null != $checkoutOptions -> getUseSandbox() && $checkoutOptions -> getUseSandbox())
+			return self :: CHECKOUTBASEURL_SANDBOX . '?' . $queryString;
 		return self :: CHECKOUTBASEURL_PROD . '?' . $queryString;
 	}
 
@@ -66,13 +71,20 @@ class checkoutHelper
 	{
 		//get ipnmodel dictionary
 		$ipnDict = $ipnModel->getAsKeyValue();
-		$ipnUrl = $ipnModel->UseSandbox ? self::IPNVERIFYURL_SANDBOX : self::IPNVERIFYURL_PROD;
+		$ipnUrl = $ipnModel->getUseSandbox() ? self::IPNVERIFYURL_SANDBOX : self::IPNVERIFYURL_PROD;
 		$headers = array('Content-Type' => 'application/json');
-		Requests::register_autoloader();
-		$response = Requests::post($ipnUrl, $headers, json_encode($ipnDict));
+		try{
+			\Requests::register_autoloader();
+			$response = \Requests::post($ipnUrl, $headers, json_encode($ipnDict));
 
-		if($response->status_code == 200)
-			return true;
+			if($response->status_code == 200)
+				return true;
+			return false;
+		}
+		catch(Exception $ex)
+		{
+			echo "exception: ". $ex->getMessage();
+		}
 		return false;
 	}
 }
