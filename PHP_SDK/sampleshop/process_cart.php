@@ -1,13 +1,14 @@
 <?php
+
 use YenePay\Models\CheckoutOptions;
 use YenePay\Models\CheckoutItem;
 use YenePay\CheckoutHelper;
 
 require(__DIR__ .'/lib/sdk/CheckoutHelper.php');
 
-	$sellerCode = "0391";
-	$successUrl = "";
-	$ipnUrl = "http://localhost:8080/sampleshop/ipn.php";
+	$sellerCode = "YOUR_YENEPAY_SELLER_CODE";
+	$successUrl = "YOUR_SUCCESS_URL";
+	$ipnUrl = "YOUR_IPN_URL";
 	$useSandbox = true;
 
 	$checkoutOptions = new CheckoutOptions($sellerCode, $useSandbox);
@@ -23,6 +24,6 @@ require(__DIR__ .'/lib/sdk/CheckoutHelper.php');
 
 	$checkoutHelper = new CheckoutHelper();
 	$checkoutUrl = $checkoutHelper -> getCartCheckoutUrl($checkoutOptions, $checkoutOrderItems);
-	var_dump($checkoutUrl);
-	//header("Location: " . $checkoutUrl);
+
+	header("Location: " . $checkoutUrl);
 ?>																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							

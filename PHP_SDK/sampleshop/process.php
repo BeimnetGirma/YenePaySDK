@@ -6,10 +6,10 @@ use YenePay\CheckoutHelper;
 
 require(__DIR__ .'/lib/sdk/CheckoutHelper.php');
 
-define("SELLER_CODE", "0391");
-define("SUCCESS_URL", "");
-define("IPN_URL", "http://localhost:8080/sampleshop/ipn.php");
-define("USE_SANDBOX", false);
+define("SELLER_CODE", "YOUR_YENEPAY_SELLER_CODE");
+define("SUCCESS_URL", "YOUR_SUCCESS_URL");
+define("IPN_URL", "YOUR_IPN_URL");
+define("USE_SANDBOX", true);
 
 	$checkoutOptions = new CheckoutOptions(SELLER_CODE, USE_SANDBOX);
 	
@@ -23,6 +23,6 @@ define("USE_SANDBOX", false);
 	
 	$checkoutHelper = new CheckoutHelper();
 	$checkoutUrl = $checkoutHelper -> getSingleCheckoutUrl($checkoutOptions, $checkoutOrderItem);
-	//var_dump($checkoutUrl);
+
 	header("Location: " . $checkoutUrl);
 ?>																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							
