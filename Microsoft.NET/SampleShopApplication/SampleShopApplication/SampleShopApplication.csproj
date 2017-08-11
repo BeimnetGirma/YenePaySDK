@@ -21,6 +21,13 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -121,7 +128,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="YenePaySDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\YenePay.YenePaySDK.1.0.0\lib\net45\YenePaySDK.dll</HintPath>
+      <HintPath>..\packages\YenePay.YenePaySDK.1.3.5\lib\YenePaySDK.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -156,7 +163,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Libraries\YenePaySdk.dll" />
     <Content Include="Scripts\Application.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -178,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Libraries\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

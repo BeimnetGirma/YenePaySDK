@@ -58,20 +58,10 @@ namespace YenePaySdk
         /// </summary>
         public string StatusDescription { get; set; }
         /// <summary>
-        /// Gets or sets the invoice identifier.
-        /// </summary>
-        /// <value>The invoice identifier.</value>
-        public Guid? InvoiceId { get; set; }
-        /// <summary>
         /// Gets or sets the currency.
         /// </summary>
         /// <value>The currency.</value>
         public string Currency { get; set; }
-        /// <summary>
-        /// Gets or sets the payment method.
-        /// </summary>
-        /// <value>The payment method.</value>
-        public string PaymentMethod { get; set; }
         /// <summary>
         /// encrypted signature 
         /// </summary>
@@ -92,9 +82,7 @@ namespace YenePaySdk
             keyValues.Add("TransactionId", this.TransactionId.ToString());
             keyValues.Add("Status", this.Status);
             keyValues.Add("StatusDescription", this.StatusDescription);
-            keyValues.Add("InvoiceId", this.InvoiceId.HasValue ? this.InvoiceId.Value.ToString() : string.Empty);
             keyValues.Add("Currency", this.Currency);
-            keyValues.Add("PaymentMethod", this.PaymentMethod);
             keyValues.Add("Signature", this.Signature);
             return keyValues;
         }

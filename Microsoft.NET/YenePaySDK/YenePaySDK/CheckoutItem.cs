@@ -29,10 +29,10 @@ namespace YenePaySdk
         [Required]
         public int Quantity { get; set; }
         /// <summary>
-        /// Gets or sets the shipping price
+        /// Gets or sets the DeliveryFee
         /// </summary>
-        /// <value>The shipping.</value>
-        public decimal? Shipping { get; set; }
+        /// <value>The DeliveryFee.</value>
+        public decimal? DeliveryFee { get; set; }
         /// <summary>
         /// Gets or sets the 15% VAT amount (if available)
         /// </summary>
@@ -67,7 +67,7 @@ namespace YenePaySdk
             }
         }
 
-        public CheckoutItem(string itemId, string itemName, decimal price, int quantity = 1, decimal? tax1 = null, decimal? tax2 = null, decimal? discount = null, decimal? handlingFee = null, decimal? shippingFee = null)
+        public CheckoutItem(string itemId, string itemName, decimal price, int quantity = 1, decimal? tax1 = null, decimal? tax2 = null, decimal? discount = null, decimal? handlingFee = null, decimal? deliveryFee = null)
         {
             this.Discount = discount;
             this.HandlingFee = handlingFee;
@@ -75,7 +75,7 @@ namespace YenePaySdk
             this.ItemName = itemName;
             this.UnitPrice = price;
             this.Quantity = quantity;
-            this.Shipping = shippingFee;
+            this.DeliveryFee = deliveryFee;
             this.Tax1 = tax1;
             this.Tax2 = tax2;
         }
@@ -106,8 +106,8 @@ namespace YenePaySdk
                 dict.Add("Discount", Discount.Value.ToString());
             if (HandlingFee.HasValue)
                 dict.Add("HandlingFee", HandlingFee.Value.ToString());
-            if (Shipping.HasValue)
-                dict.Add("Shipping", Shipping.Value.ToString());
+            if (DeliveryFee.HasValue)
+                dict.Add("DeliveryFee", DeliveryFee.Value.ToString());
             if (Tax1.HasValue)
                 dict.Add("Tax1", Tax1.Value.ToString());
             if (Tax2.HasValue)

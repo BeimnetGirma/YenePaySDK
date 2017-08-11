@@ -3,3 +3,8 @@ c:\users\user\documents\visual studio 2013\Projects\YenePaySDK\YenePaySDK\bin\Re
 c:\users\user\documents\visual studio 2013\Projects\YenePaySDK\YenePaySDK\obj\Release\YenePaySDK.dll
 c:\users\user\documents\visual studio 2013\Projects\YenePaySDK\YenePaySDK\obj\Release\YenePaySDK.pdb
 c:\users\user\documents\visual studio 2013\Projects\YenePaySDK\YenePaySDK\obj\Release\YenePaySDK.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\YenePaySDK-master\Microsoft.NET\YenePaySDK\YenePaySDK\bin\Release\YenePaySDK.dll
+C:\Users\Admin\Documents\YenePaySDK-master\Microsoft.NET\YenePaySDK\YenePaySDK\bin\Release\YenePaySDK.pdb
+C:\Users\Admin\Documents\YenePaySDK-master\Microsoft.NET\YenePaySDK\YenePaySDK\obj\Release\YenePaySDK.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\YenePaySDK-master\Microsoft.NET\YenePaySDK\YenePaySDK\obj\Release\YenePaySDK.dll
+C:\Users\Admin\Documents\YenePaySDK-master\Microsoft.NET\YenePaySDK\YenePaySDK\obj\Release\YenePaySDK.pdb
