@@ -14,8 +14,7 @@
             'ItemId': ItemId,
             'ItemName': ItemName,
             'UnitPrice': UnitPrice,
-            'Quantity': Quantity
-           
+            'Quantity': Quantity           
         };
 
         Items.push(item);
@@ -23,19 +22,16 @@
     });
     
     $('#checkout').click(function () {
-        debugger;
         $.ajax({
             type: "POST",
             dataType: "json",
             url: cartUrl,
-            //contentType: "application/json",
-            data: { 'Items': JSON.stringify(Items)},
-			//data: {'test':'mytest'},
+            contentType: "application/json",
+            data: JSON.stringify({ 'Items': Items }),
             success: function (data) {
 				debugger;
                 if (data) {
-					console.write(data);
-                    //window.location = data.redirectUrl;
+                    window.location = data.redirectUrl;
                 }
             },
             error: function (xhr, status, text) {

@@ -9,6 +9,19 @@ namespace YenePaySdk
 {
     public class PDTRequestModel
     {
+        public PDTRequestModel() {
+            RequestType = "PDT";
+        }
+
+        public PDTRequestModel(string pdtToken):this() {
+            PdtToken = pdtToken;
+        }
+
+        public PDTRequestModel(string pdtToken, Guid transactionId) : this()
+        {
+            PdtToken = pdtToken;
+            TransactionId = transactionId;
+        }
         /// <summary>
         /// Gets or sets the type of the request.
         /// </summary>

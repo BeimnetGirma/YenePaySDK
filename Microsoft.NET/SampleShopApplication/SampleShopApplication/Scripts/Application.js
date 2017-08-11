@@ -9,13 +9,12 @@
         var Quantity = element.parent().children("input[name=Quantity]").val();
         counter++;
         $("img[id=index-para]").append().css("border", "3px solid red");
-        $("p[id=index-p]").html("No_Of_Items:"+counter);
+        $("p[id=index-p]").html("#Items: " + counter);
         var item = {
             'ItemId': ItemId,
             'ItemName': ItemName,
             'UnitPrice': UnitPrice,
-            'Quantity': Quantity
-           
+            'Quantity': Quantity           
         };
 
         Items.push(item);
@@ -23,7 +22,6 @@
     });
     
     $('#checkout').click(function () {
-        debugger;
         $.ajax({
             type: "POST",
             dataType: "json",

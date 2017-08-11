@@ -8,35 +8,41 @@ require_once(__DIR__ .'/lib/sdk/Models/IPN.php');
 
 $ipnModel = new IPN();
 $ipnModel->setUseSandbox(true);
-if(isset($_POST["TotalAmount"]))
-	$ipnModel->setTotalAmount($_POST["TotalAmount"]);
-if(isset($_POST["BuyerId"]))
-	$ipnModel->setBuyerId($_POST["BuyerId"]);
-if(isset($_POST["BuyerName"]))
-	$ipnModel->setBuyerName($_POST["BuyerName"]);
-if(isset($_POST["TransactionFee"]))
-	$ipnModel->setTransactionFee($_POST["TransactionFee"]);
-if(isset($_POST["MerchantOrderId"]))
-	$ipnModel->setMerchantOrderId($_POST["MerchantOrderId"]);
-if(isset($_POST["MerchantId"]))
-	$ipnModel->setMerchantId($_POST["MerchantId"]);
-if(isset($_POST["MerchantCode"]))
-	$ipnModel->setMerchantCode($_POST["MerchantCode"]);
-if(isset($_POST["TransactionId"]))
-	$ipnModel->setTransactionId($_POST["TransactionId"]);
-if(isset($_POST["Status"]))
-	$ipnModel->setStatus($_POST["Status"]);
-if(isset($_POST["StatusDescription"]))
-	$ipnModel->setStatusDescription($_POST["StatusDescription"]);
-if(isset($_POST["Currency"]))
-	$ipnModel->setCurrency($_POST["Currency"]);
-if(isset($_POST["Signature"]))
-	$ipnModel->setSignature($_POST["Signature"]);
+
+$json_data = json_decode(file_get_contents('php://input'), true);
+
+if(isset($json_data["TotalAmount"]))
+	$ipnModel->setTotalAmount($json_data["TotalAmount"]);
+if(isset($json_data["BuyerId"]))
+	$ipnModel->setBuyerId($json_data["BuyerId"]);
+if(isset($json_data["BuyerName"]))
+	$ipnModel->setBuyerName($json_data["BuyerName"]);
+if(isset($json_data["TransactionFee"]))
+	$ipnModel->setTransactionFee($json_data["TransactionFee"]);
+if(isset($json_data["MerchantOrderId"]))
+	$ipnModel->setMerchantOrderId($json_data["MerchantOrderId"]);
+if(isset($json_data["MerchantId"]))
+	$ipnModel->setMerchantId($json_data["MerchantId"]);
+if(isset($json_data["MerchantCode"]))
+	$ipnModel->setMerchantCode($json_data["MerchantCode"]);
+if(isset($json_data["TransactionId"]))
+	$ipnModel->setTransactionId($json_data["TransactionId"]);
+if(isset($json_data["Status"]))
+	$ipnModel->setStatus($json_data["Status"]);
+if(isset($json_data["StatusDescription"]))
+	$ipnModel->setStatusDescription($json_data["StatusDescription"]);
+if(isset($json_data["Currency"]))
+	$ipnModel->setCurrency($json_data["Currency"]);
+if(isset($json_data["Signature"]))
+	$ipnModel->setSignature($json_data["Signature"]);
 
 
 $helper = new CheckoutHelper();
 if ($helper->isIPNAuthentic($ipnModel))
+{	//This means the payment is completed
+	//You can now mark the order as "Paid" or "Completed" here and start the delivery process
 	echo 'Success!';
+}
 else
 	echo 'Fail';
 ?>

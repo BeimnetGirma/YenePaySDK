@@ -39,6 +39,11 @@ namespace YenePaySdk
         /// this is an optional field
         /// </summary>
         public int? ExpiresInDays { get; set; }
+        public decimal? TotalItemsDeliveryFee { get; set; }
+        public decimal? TotalItemsTax1 { get; set; }
+        public decimal? TotalItemsTax2 { get; set; }
+        public decimal? TotalItemsDiscount { get; set; }
+        public decimal? TotalItemsHandlingFee { get; set; }
         /// <summary>
         /// Gets or sets the switch used to determine if the operation should be done in the sandbox environment
         /// </summary>
@@ -73,7 +78,7 @@ namespace YenePaySdk
         /// <param name="cancelReturn"></param>
         /// <param name="ipnUrl"></param>
         /// <param name="failureUrl"></param>
-        public CheckoutOptions(string sellerCode, string merchantOrderId = "", CheckoutType process=CheckoutType.Express, bool useSandBox = false, int? expiresInDays = null, string successReturn = "", string cancelReturn = "", string ipnUrl = "", string failureUrl = "")
+        public CheckoutOptions(string sellerCode, string merchantOrderId = "", CheckoutType process = CheckoutType.Express, bool useSandBox = false, int? expiresInDays = null, string successReturn = "", string cancelReturn = "", string ipnUrl = "", string failureUrl = "")
         {
             UseSandbox = useSandBox;
             Process = process;
@@ -85,7 +90,17 @@ namespace YenePaySdk
             ExpiresInDays = expiresInDays;
             OrderId = merchantOrderId;
         }
-        public Dictionary<string, string> GetAsKeyValue()
+
+        public void SetOrderFees(decimal? totalItemsDeliveryFee, decimal? totalItemsDiscount, decimal? totalItemsHandlingFee, decimal? totalItemsTax1, decimal? totalItemsTax2)
+        {
+            TotalItemsDeliveryFee = totalItemsDeliveryFee;
+            TotalItemsDiscount = totalItemsDiscount;
+            TotalItemsHandlingFee = totalItemsHandlingFee;
+            TotalItemsTax1 = totalItemsTax1;
+            TotalItemsTax2 = totalItemsTax2;
+        }
+
+        public Dictionary<string, string> GetAsKeyValue(bool forCart)
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
             dict.Add("MerchantId", SellerCode);
@@ -97,7 +112,23 @@ namespace YenePaySdk
             dict.Add("Process", Process.ToString());
             if (ExpiresInDays.HasValue)
                 dict.Add("ExpiresInDays", ExpiresInDays.Value.ToString());
+            if (forCart)
+            {
+                dict.Add("TotalItemsDeliveryFee", TotalItemsDeliveryFee._ToString());
+                dict.Add("TotalItemsTax1", TotalItemsTax1._ToString());
+                dict.Add("TotalItemsTax2", TotalItemsTax2._ToString());
+                dict.Add("TotalItemsDiscount", TotalItemsDiscount._ToString());
+                dict.Add("TotalItemsHandlingFee", TotalItemsHandlingFee._ToString());
+            }
             return dict;
+        }
+    }
+
+    static class DecimalExtensions
+    {
+        public static string _ToString(this decimal? data)
+        {
+            return data.HasValue ? data.Value.ToString("0.00") : string.Empty;
         }
     }
 

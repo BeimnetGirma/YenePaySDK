@@ -23,7 +23,7 @@ Step 2: Add a using reference to your class
 using YenePaySDK;
 ```
 
-Step 2: Generate a Checkout Url using the help methods provided by the SDK library as shown below
+Step 3: Generate a Checkout Url using the help methods provided by the SDK library as shown below
 
 ```
 CheckoutOptions checkoutoptions = new CheckoutOptions("YOUR_SELLER_CODE", true);
