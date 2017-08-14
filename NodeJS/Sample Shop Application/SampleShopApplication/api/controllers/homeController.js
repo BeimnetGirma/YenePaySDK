@@ -3,12 +3,12 @@
 
 var ypco = require('yenepaysdk');
 
-var sellerCode = "0012", //"YOUR_YENEPAY_SELLER_CODE",
+var sellerCode = //"YOUR_YENEPAY_SELLER_CODE",
     successUrlReturn = "http://localhost:3000/Home/PaymentSuccessReturnUrl", //"YOUR_SUCCESS_URL",
     ipnUrlReturn = "http://localhost:3000/Home/IPNDestination", //"YOUR_IPN_URL",
     cancelUrlReturn = "", //"YOUR_CANCEL_URL",
     failureUrlReturn = "", //"YOUR_FAILURE_URL",
-    pdtToken = "PAujBC2Ej1WZaM", // "YOUR_PDT_KEY_HERE",
+    pdtToken = //"YOUR_PDT_KEY_HERE",
     useSandbox = true; //false;
     
 
@@ -24,7 +24,7 @@ exports.CheckoutExpress = function(req, res) {
 exports.CheckoutCart = function(req, res) {
   var merchantOrderId = 'AB-CD'; //"YOUR_UNIQUE_ID_FOR_THIS_ORDER";  //can also be set null
   var expiresInDays = 2; //"NUMBER_OF_DAYS_BEFORE_THE_ORDER_EXPIRES"; //setting null means it never expires
-  var checkoutOptions = ypco.checkoutOptions(sellerCode, merchantOrderId, ypco.checkoutType.Cart, useSandbox, expiresInDays, successUrlReturn, cancelUrlReturn, ipnUrlReturn, failureUrl);
+  var checkoutOptions = ypco.checkoutOptions(sellerCode, merchantOrderId, ypco.checkoutType.Cart, useSandbox, expiresInDays, successUrlReturn, cancelUrlReturn, ipnUrlReturn, failureUrlReturn);
   var data = req.body;
   var checkoutItems = data.Items;
 
@@ -32,12 +32,12 @@ exports.CheckoutCart = function(req, res) {
   var totalItemsDeliveryFee = 100;
   var totalItemsDiscount = 50;
   var totalItemsHandlingFee = 30;
-  var totalPrice = 0, totalTax1 = 0, totalTax2 = 0;
+  var totalPrice = 0;
   checkoutItems.forEach(function(element) {
     totalPrice += element.UnitPrice * element.Quantity;
   });
-  totalItemsTax1 = 0.15*totalPrice;
-  totalItemsTax2 = 0.02*totalPrice;
+  var totalItemsTax1 = 0.15*totalPrice;
+  var totalItemsTax2 = 0.02*totalPrice;
   ///////////////////////////////////////////////////////////////
 
   checkoutOptions.SetOrderFees(totalItemsDeliveryFee, totalItemsDiscount, totalItemsHandlingFee, totalItemsTax1, totalItemsTax2);
@@ -59,15 +59,44 @@ exports.IPNDestination = function(req, res) {
 
 exports.PaymentSuccessReturnUrl = function(req, res) {
   var params = req.query;
-  var pdtRequestModel = new ypco.pdtRequestModel(pdtToken, params.TransactionId, true);
-  ypco.checkout.RequestPDT(pdtRequestModel).then((pdtString) => {
-    //This means the payment is completed. 
-    //You can extract more information of the transaction from the pdtString
-    //You can now mark the order as "Paid" or "Completed" here and start the delivery process
+  var pdtRequestModel = new ypco.pdtRequestModel(pdtToken, params.TransactionId, params.MerchantOrderId, useSandbox);
+  ypco.checkout.RequestPDT(pdtRequestModel).then((pdtJson) => {
+    if(pdtJson.Status = 'Paid')
+    {
+      //This means the payment is completed. 
+      //You can extract more information of the transaction from the pdtResponse
+      //You can now mark the order as "Paid" or "Completed" here and start the delivery process
+    }
     res.redirect('/');
   })
   .catch((err) => {
-    //This means the payment is not completed yet.
+    //This means the pdt request has failed.
+	  //possible reasons are 
+      //1. the TransactionId is not valid
+      //2. the PDT_Key is incorrect
+
     res.redirect('/');
-  });;
+  });
+};
+
+exports.PaymentCancelReturnUrl = function(req, res) {
+  var params = req.query;
+  var pdtRequestModel = new ypco.pdtRequestModel(pdtToken, params.TransactionId, params.MerchantOrderId, useSandbox);
+  ypco.checkout.RequestPDT(pdtRequestModel).then((pdtJson) => {
+    if(pdtJson.Status = 'Canceled')
+    {
+      //This means the payment is canceled. 
+      //You can extract more information of the transaction from the pdtResponse
+      //You can now mark the order as "Canceled" here.
+    }
+    res.json({"result":pdtJson.result});
+  })
+  .catch((err) => {
+    //This means the pdt request has failed.
+	  //possible reasons are 
+      //1. the TransactionId is not valid
+      //2. the PDT_Key is incorrect
+
+     res.json({"result": "Failed"});
+  });
 };

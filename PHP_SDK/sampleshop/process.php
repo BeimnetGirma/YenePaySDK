@@ -8,10 +8,14 @@ require(__DIR__ .'/lib/sdk/CheckoutHelper.php');
 
 define("SELLER_CODE", "YOUR_YENEPAY_SELLER_CODE");
 define("SUCCESS_URL", "YOUR_SUCCESS_URL");
+define("CANCEL_URL", "YOUR_CANCEL_URL");
 define("IPN_URL", "YOUR_IPN_URL");
 define("USE_SANDBOX", true);
 
 	$checkoutOptions = new CheckoutOptions(SELLER_CODE, USE_SANDBOX);
+	$checkoutOptions -> setSuccessUrl(SUCCESS_URL);
+	$checkoutOptions -> setCancelUrl(CANCEL_URL);
+	$checkoutOptions -> setIPNUrl(IPN_URL);
 	
 	$checkoutOrderItem = new CheckoutItem($_POST["ItemName"], $_POST["UnitPrice"], $_POST["Quantity"]);
 	if(isset($_POST["ItemId"]))

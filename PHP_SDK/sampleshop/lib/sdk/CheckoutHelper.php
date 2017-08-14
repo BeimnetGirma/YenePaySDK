@@ -93,8 +93,7 @@ class CheckoutHelper
 			if($response->status_code == 200){
 				parse_str(trim($response->body, '"'), $responseArray);
 				return $responseArray;
-			}
-				
+			}				
 		}
 		catch(Exception $ex)
 		{

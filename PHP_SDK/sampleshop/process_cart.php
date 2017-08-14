@@ -7,12 +7,16 @@ use YenePay\CheckoutHelper;
 require(__DIR__ .'/lib/sdk/CheckoutHelper.php');
 
 	$sellerCode = "YOUR_YENEPAY_SELLER_CODE";
-	$successUrl = "YOUR_SUCCESS_URL";
+	$successUrl = "http://localhost:81/sampleshop/success.php"; //"YOUR_SUCCESS_URL";
+	$cancelUrl = "http://localhost:81/sampleshop/cancel.php"; //"YOUR_CANCEL_URL";
 	$ipnUrl = "YOUR_IPN_URL";
-	$successUrlReturn = "http://localhost:81/sampleshop/success.php"; //"YOUR_SUCCESS_URL";
 	$useSandbox = true;
 	
 	$checkoutOptions = new CheckoutOptions($sellerCode, $useSandbox);
+	$checkoutOptions -> setSuccessUrl($successUrl);
+	$checkoutOptions -> setCancelUrl($cancelUrl);
+	$checkoutOptions -> setIPNUrl($ipnUrl);
+	
 	$checkoutOptions -> setTotalItemsDeliveryFee(30);
 	
 	$data = json_decode(file_get_contents('php://input'), true);

@@ -17,10 +17,11 @@ namespace YenePaySdk
             PdtToken = pdtToken;
         }
 
-        public PDTRequestModel(string pdtToken, Guid transactionId) : this()
+        public PDTRequestModel(string pdtToken, Guid transactionId, string merchantOrderId) : this()
         {
             PdtToken = pdtToken;
             TransactionId = transactionId;
+            MerchantOrderId = merchantOrderId;
         }
         /// <summary>
         /// Gets or sets the type of the request.
@@ -40,6 +41,12 @@ namespace YenePaySdk
         /// <value>The transaction identifier.</value>
         [Required]
         public Guid TransactionId { get; set; }
+        /// <summary>
+        /// Gets or sets the merchantOrder identifier.
+        /// </summary>
+        /// <value>The merchantOrder identifier.</value>
+        [Required]
+        public string MerchantOrderId { get; set; }
 
         public bool UseSandbox { get; set; }
 
@@ -49,6 +56,7 @@ namespace YenePaySdk
             keyValues.Add("RequestType", this.RequestType.ToString());
             keyValues.Add("PdtToken", this.PdtToken.ToString());
             keyValues.Add("TransactionId", this.TransactionId.ToString());
+            keyValues.Add("MerchantOrderId", this.MerchantOrderId);
             return keyValues;
         }
     }

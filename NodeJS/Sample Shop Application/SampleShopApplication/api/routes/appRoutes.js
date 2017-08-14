@@ -10,4 +10,6 @@ module.exports = function(app) {
     .post(home.IPNDestination);
   app.route('/Home/PaymentSuccessReturnUrl')
     .get(home.PaymentSuccessReturnUrl);
+  app.route('/Home/PaymentCancelReturnUrl')
+    .get(home.PaymentCancelReturnUrl);
 };
