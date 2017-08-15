@@ -1,11 +1,12 @@
 'use strict';
 
-module.exports = function(pdtToken, transactionId, useSandbox = false)
+module.exports = function(pdtToken, transactionId, merchantOrderId, useSandbox = false)
     {
-        var self = this;
+       var self = this;
         self.RequestType = "PDT";
         self.PdtToken = pdtToken;
         self.TransactionId = transactionId;
+        self.MerchantOrderId = merchantOrderId;
         self.UseSandbox = useSandbox;
 
         self.GetPDTDictionary = function()
@@ -13,7 +14,8 @@ module.exports = function(pdtToken, transactionId, useSandbox = false)
             var dic = {
                 RequestType: self.RequestType,
                 PdtToken: self.PdtToken,
-                TransactionId: self.TransactionId
+                TransactionId: self.TransactionId,
+                MerchantOrderId : self.MerchantOrderId
             };
             return dic;
         }

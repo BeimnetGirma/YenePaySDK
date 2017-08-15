@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(itemId, itemName, price, quantity = 1, tax1 = null, tax2 = null, discount = null, handlingFee = null, shippingFee = null)
+module.exports = function(itemId, itemName, price, quantity = 1, tax1 = null, tax2 = null, discount = null, handlingFee = null, deliveryFee = null)
     {
         var self = this;
         self.ItemId = itemId? itemId : '';
@@ -9,7 +9,7 @@ module.exports = function(itemId, itemName, price, quantity = 1, tax1 = null, ta
         self.Quantity = quantity;
         self.Discount = discount;
         self.HandlingFee = handlingFee;        
-        self.DeliveryFee = shippingFee;
+        self.DeliveryFee = deliveryFee;
         self.Tax1 = tax1;
         self.Tax2 = tax2;
 

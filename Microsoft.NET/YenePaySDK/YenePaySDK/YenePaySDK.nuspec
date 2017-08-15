@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>YenePay.YenePaySDK</id>
+    <version>1.3.7</version>
+    <title>YenePaySDK</title>
+    <authors>Ermias Haileyesus, Natan Tadesse</authors>
+    <owners>YenePay Financial Technologies P.L.C.</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SDK to integrate .NET applications with YenePay's online payment platform</description>
+    <releaseNotes>Third release</releaseNotes>
+    <copyright>Copyright 2017 (c) YenePay Financial Technologies P.L.C. All rights reserved.</copyright>
+    <tags>yenepay payment sdk online .net c#</tags>	
+  </metadata>
+  <files>
+	<file src="bin\Release\YenePaySDK.dll" target="lib" />
+  </files>
+</package>

@@ -109,7 +109,8 @@ function yenepaycheckout(querystring, extend, request)
             },
                 function (error, response, body) {                    
                     if (!error && response.statusCode == 200) {
-                            resolve(body);
+                            var pdtJson = self.PDTStringToJSON(body);
+                            resolve(pdtJson);
                         }
                     else{
                             reject(error);
@@ -117,6 +118,16 @@ function yenepaycheckout(querystring, extend, request)
                 }
             );            
         }); 
+    }
+	
+	self.PDTStringToJSON = function(pdtString){
+        var pairs = pdtString.slice(0).split('&');
+        var result = {};
+        pairs.forEach(function(pair){
+            pair = pair.split('=');
+            result[pair[0]] = pair[1];
+        });
+        return JSON.parse(JSON.stringify(result));
     }
         
 }
@@ -126,7 +137,7 @@ module.exports.checkoutOptions = function(sellerCode, merchantOrderId = "", proc
     return new _checkoutOptions(sellerCode, merchantOrderId, process, useSandbox, expiresInDays, successReturn, cancelReturn, ipnUrl, failureUrl);
 };
 module.exports.checkoutType = _checkoutType;
-module.exports.pdtRequestModel = function(pdtToken, transactionId, useSandbox = false){
-    return new _pdtRequestModel(pdtToken, transactionId, useSandbox);
+module.exports.pdtRequestModel = function(pdtToken, transactionId, merchantOrderId, useSandbox = false){
+    return new _pdtRequestModel(pdtToken, transactionId, merchantOrderId, useSandbox);
 }
  

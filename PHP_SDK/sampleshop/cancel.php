@@ -22,11 +22,11 @@ $result = $helper->RequestPDT($pdtModel);
 
 if($result['result'] == "SUCCESS"){
 	$order_status = $result['Status'];
-	if($order_status == 'Paid')
+	if($order_status == 'Canceled')
 	{
-		//This means the payment is completed. 
+		//This means the payment is canceled. 
 		//You can extract more information of the transaction from the $result array
-		//You can now mark the order as "Paid" or "Completed" here and start the delivery process
+		//You can now mark the order as "Canceled" here.
 	}
 }
 else{
@@ -36,7 +36,6 @@ else{
 		//2. the PDT_Key is incorrect
 }
 
-header("Location: " . '/');
-//echo $result['result'];
+echo $result['result'];
 
 ?>

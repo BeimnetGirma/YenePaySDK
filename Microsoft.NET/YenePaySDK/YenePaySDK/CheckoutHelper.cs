@@ -16,14 +16,6 @@ namespace YenePaySdk
         private const string pdtUrlProd = "https://endpoints.yenepay.com/api/verify/pdt/";
         private const string pdtUrlSandbox = "https://testapi.yenepay.com/api/verify/pdt/";
 
-
-        //private const string checkoutBaseUrlProd = "http://localhost/checkout/Home/Process/";
-        //private const string checkoutBaseUrlSandbox = "http://localhost:8084/checkout/Home/Process/";
-        //private const string ipnVerifyUrlProd = "http://localhost/ETPay.Api/api/verify/ipn/";
-        //private const string ipnVerifyUrlSandbox = "http://localhost:8084/ETPay.Api/api/verify/ipn/";
-        //private const string pdtUrlProd = "http://localhost/ETPay.Api/api/verify/pdt/";
-        //private const string pdtUrlSandbox = "http://localhost:8084/ETPay.Api/api/verify/pdt/";        
-
         private static HttpClient client = new HttpClient();
 
         public static string GetCheckoutUrl(CheckoutOptions options, CheckoutItem item)
@@ -80,8 +72,9 @@ namespace YenePaySdk
             return false;
         }
 
-        public static async Task<string> RequestPDT(PDTRequestModel pdtRequest)
+        public static async Task<Dictionary<string, string>> RequestPDT(PDTRequestModel pdtRequest)
         {
+            Dictionary<string, string> result = new Dictionary<string, string>();
             pdtRequest.RequestType = "PDT";
             var keyValues = pdtRequest.GetPDTDictionary();
             var content = new FormUrlEncodedContent(keyValues);
@@ -89,18 +82,20 @@ namespace YenePaySdk
             var response = await client.PostAsync(pdtUrl, content);
             if (response.IsSuccessStatusCode)
             {
-                string result = await response.Content.ReadAsStringAsync();
-                if (!string.IsNullOrEmpty(result) && result.Trim().Contains("SUCCESS"))
+                string pdtString = await response.Content.ReadAsStringAsync();
+                if (!string.IsNullOrEmpty(pdtString))
                 {
-                    var pdtString = result.Trim();
-                    if (string.IsNullOrEmpty(pdtString))
+                    pdtString = pdtString.Trim();
+                    //the PDT string with this format: "result=SUCCESS&TotalAmount=total_amount&BuyerId=buyer_yenepay_account_id&BuyerName=buyer_name&TransactionFee=service_charge_fee_amount&MerchantOrderId=order_id_set_by_merchant&MerchantId=merchant_yenepay_account_id&MerchantCode=merchant_yenepay_seller_code&TransactionId=transaction_order_id&Status=current_status_of_the_order&StatusDescription=current_status_description&Currency=currency_used_for_transaction"
+                    var arr = pdtString.Split('&');
+                    foreach (var item in arr)
                     {
-                        //the PDT string with this format: "TotalAmount=total_amount&BuyerId=buyer_yenepay_account_id&BuyerName=buyer_name&TransactionFee=service_charge_fee_amount&MerchantOrderId=order_id_set_by_merchant&MerchantId=merchant_yenepay_account_id&MerchantCode=merchant_yenepay_seller_code&TransactionId=transaction_order_id&Status=current_status_of_the_order&StatusDescription=current_status_description&Currency=currency_used_for_transaction"
-                        return pdtString;
+                        var keyValue = item.Split('=');
+                        result.Add(keyValue[0], keyValue[1]);
                     }
                 }
             }
-            return null;
+            return result;
         }
     }
 

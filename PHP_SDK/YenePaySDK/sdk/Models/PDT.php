@@ -12,6 +12,7 @@ namespace YenePay\Models;
  * @property string requestType
  * @property string pdtToken
  * @property string transactionId
+ * @property string merchantOrderId
  */
  
 class PDT
@@ -19,6 +20,7 @@ class PDT
 	private  $requestType;
 	private  $pdtToken;
 	private  $transactionId;
+	private	 $merchantOrderId;		
 	private  $useSandbox;
 		
 	function __construct()
@@ -37,11 +39,12 @@ class PDT
 		$this->pdtToken = $pdtToken;
 	}
 	
-	function __construct2($pdtToken, $transactionId)
+	function __construct3($pdtToken, $transactionId, $merchantOrderId)
 	{
 		$this->requestType = "PDT";
 		$this->pdtToken = $pdtToken;
         $this->transactionId = $transactionId;
+		$this->merchantOrderId = $merchantOrderId;
 	}
 		
 	/**
@@ -114,6 +117,29 @@ class PDT
     }
 	
 	/**
+     * Set the merchantOrderId of the order being requested
+     *
+     * @param string $merchantOrderId
+     *
+     * @return $this
+     */
+    public function setMerchantOrderId($merchantOrderId)
+    {
+        $this->merchantOrderId = $merchantOrderId;
+        return $this;
+    }
+
+    /**
+     * Get the merchantOrderId of the order being requested
+     *
+     * @return string
+     */
+    public function getMerchantOrderId()
+    {
+        return $this->merchantOrderId;
+    }
+	
+	/**
      * Use sandbox application or production server
      *
      * @param string $useSandbox
@@ -145,7 +171,8 @@ class PDT
 			$dictionary["PdtToken"] = $this->getPDTToken();
 		if(null != $this->getTransactionId())
 			$dictionary["TransactionId"] = $this->getTransactionId();
-
+		if(null != $this->getMerchantOrderId())
+			$dictionary["MerchantOrderId"] = $this->getMerchantOrderId();
 		return $dictionary;
 	}
 }

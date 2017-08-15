@@ -18,7 +18,7 @@ namespace SampleShopApplication.Controllers
             string sellerCode = "YOUR_YENEPAY_SELLER_CODE";
             string successUrlReturn = "http://localhost:5525/Home/PaymentSuccessReturnUrl"; //"YOUR_SUCCESS_URL";
             string ipnUrlReturn = "http://localhost:5525/Home/IPNDestination"; //"YOUR_IPN_URL";
-            string cancelUrlReturn = ""; //"YOUR_CANCEL_URL";
+            string cancelUrlReturn = "http://localhost:5525/Home/PaymentCancelReturnUrl"; //"YOUR_CANCEL_URL";
             string failureUrlReturn = ""; //"YOUR_FAILURE_URL";
             bool useSandBox = true;
             checkoutoptions = new CheckoutOptions(sellerCode, string.Empty, CheckoutType.Express, useSandBox, null, successUrlReturn, cancelUrlReturn, ipnUrlReturn, failureUrlReturn);
@@ -73,7 +73,7 @@ namespace SampleShopApplication.Controllers
             decimal? totalItemsDeliveryFee = 50;
             decimal? totalItemsDiscount = 30;
             decimal? totalItemsHandlingFee = 10;
-            decimal? totalItemsTax1 = Items.Sum(i=> (i.UnitPrice*i.Quantity)) * (decimal)0.15;
+            decimal? totalItemsTax1 = Items.Sum(i => (i.UnitPrice * i.Quantity)) * (decimal)0.15;
             decimal? totalItemsTax2 = Items.Sum(i => (i.UnitPrice * i.Quantity)) * (decimal)0.02;
             checkoutoptions.SetOrderFees(totalItemsDeliveryFee, totalItemsDiscount, totalItemsHandlingFee, totalItemsTax1, totalItemsTax2);
 
@@ -105,19 +105,48 @@ namespace SampleShopApplication.Controllers
 
         public async Task<ActionResult> PaymentSuccessReturnUrl(IPNModel ipnModel)
         {
-            Guid transactionId = ipnModel.TransactionId;
-            PDTRequestModel model = new PDTRequestModel(pdtToken, transactionId);
-            var pdtString = await CheckoutHelper.RequestPDT(model);
-            if (!string.IsNullOrEmpty(pdtString))
+            PDTRequestModel model = new PDTRequestModel(pdtToken, ipnModel.TransactionId, ipnModel.MerchantOrderId);
+            var pdtResponse = await CheckoutHelper.RequestPDT(model);
+            if (pdtResponse.Count() > 0)
             {
-                //This means the payment is completed. 
-                //You can extract more information of the transaction from the pdtString
-                //You can now mark the order as "Paid" or "Completed" here and start the delivery process
+                if (pdtResponse["Status"] == "Paid")
+                {
+                    //This means the payment is completed. 
+                    //You can extract more information of the transaction from the pdtResponse dictionary
+                    //You can now mark the order as "Paid" or "Completed" here and start the delivery process
+                }
             }
-            else {
-                //This means the payment is not completed yet.
+            else
+            {
+                //This means the pdt request has failed.
+                //possible reasons are 
+                //1. the TransactionId is not valid
+                //2. the PDT_Key is incorrect
             }
             return Redirect("/"); ;
+        }
+
+        public async Task<string> PaymentCancelReturnUrl(IPNModel ipnModel)
+        {
+            PDTRequestModel model = new PDTRequestModel(pdtToken, ipnModel.TransactionId, ipnModel.MerchantOrderId);
+            var pdtResponse = await CheckoutHelper.RequestPDT(model);
+            if (pdtResponse.Count() > 0)
+            {
+                if (pdtResponse["Status"] == "Canceled")
+                {
+                    //This means the payment is canceled. 
+                    //You can extract more information of the transaction from the pdtResponse dictionary
+                    //You can now mark the order as "Canceled" here.
+                }
+            }
+            else
+            {
+                //This means the pdt request has failed.
+                //possible reasons are 
+                //1. the TransactionId is not valid
+                //2. the PDT_Key is incorrect
+            }
+            return string.Empty;
         }
 
         private async Task<bool> CheckIPN(IPNModel model)

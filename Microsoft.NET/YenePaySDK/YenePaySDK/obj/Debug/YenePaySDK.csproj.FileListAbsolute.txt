@@ -17,3 +17,7 @@ C:\Users\Admin\Documents\YenePaySDK-master\Microsoft.NET\YenePaySDK\YenePaySDK\b
 C:\Users\Admin\Documents\YenePaySDK-master\Microsoft.NET\YenePaySDK\YenePaySDK\obj\Debug\YenePaySDK.csprojResolveAssemblyReference.cache
 C:\Users\Admin\Documents\YenePaySDK-master\Microsoft.NET\YenePaySDK\YenePaySDK\obj\Debug\YenePaySDK.dll
 C:\Users\Admin\Documents\YenePaySDK-master\Microsoft.NET\YenePaySDK\YenePaySDK\obj\Debug\YenePaySDK.pdb
+C:\Users\Admin\Documents\GitHub\YenePaySDK\Microsoft.NET\YenePaySDK\YenePaySDK\bin\Debug\YenePaySDK.dll
+C:\Users\Admin\Documents\GitHub\YenePaySDK\Microsoft.NET\YenePaySDK\YenePaySDK\bin\Debug\YenePaySDK.pdb
+C:\Users\Admin\Documents\GitHub\YenePaySDK\Microsoft.NET\YenePaySDK\YenePaySDK\obj\Debug\YenePaySDK.dll
+C:\Users\Admin\Documents\GitHub\YenePaySDK\Microsoft.NET\YenePaySDK\YenePaySDK\obj\Debug\YenePaySDK.pdb
